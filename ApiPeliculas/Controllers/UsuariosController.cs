@@ -3,6 +3,7 @@ using ApiPeliculas.Models;
 using ApiPeliculas.Models.Dto;
 using ApiPeliculas.Repositorio.IRepositorio;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -23,7 +24,9 @@ namespace ApiPeliculas.Controllers
             _mapper = mapper;
         }
         //Obtener lista de usuarios
+        [Authorize(Roles = "admin")]
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetUsuarios()
@@ -40,12 +43,15 @@ namespace ApiPeliculas.Controllers
         }
 
         //BUSCAR POR ID
-        [HttpGet("{usuarioId:int})", Name = "GetUsuario")]
+        [Authorize(Roles = "admin")]
+        [HttpGet("{usuarioId})", Name = "GetUsuario")]
+       
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetUsuario(int usuarioId)
+        public IActionResult GetUsuario(string usuarioId)
         {
             var itemUsuario = _usRepo.GetUsuario(usuarioId);
             if (itemUsuario == null)
@@ -58,7 +64,8 @@ namespace ApiPeliculas.Controllers
         }
 
         //Registro
-        [HttpPost("Registro")]
+        [AllowAnonymous]
+        [HttpPost("registro")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -86,6 +93,7 @@ namespace ApiPeliculas.Controllers
             return Ok(_respuestaAPI);
         }
         //Login
+        [AllowAnonymous]
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

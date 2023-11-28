@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\CHAMBA_PAUL\CURSO_ASP_NET\ApiPeliculas\ApiPeliculas\bin\Release\net8.0\publish\</_PublishTargetUrl>
+    <History>True|2023-11-28T17:30:09.8799763Z;True|2023-11-28T11:22:03.2380211-06:00;True|2023-11-28T11:19:11.1551912-06:00;True|2023-11-28T11:01:36.2546671-06:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>
